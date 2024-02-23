@@ -4,34 +4,34 @@ a = np.array([3, 2, 1],dtype='uint8')
 
 assert a.dtype == "uint8"
 
-b = np.array([[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]])
+b = np.zeros((5,5))
 
 assert b.shape == (5, 5) and b.sum() == 0
 
-c = np.array([[[0,1],[3,0]]])
+c = np.ones((3,3,3))
 
 assert c.ndim == 3 and c.sum() / c.size == 1
 
-d = np.array([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4])
-
+d = np.arange(-5,5,1)
 assert np.all(d == np.array([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4]))
 
-e = np.array([0., 0.25, 0.5, 0.75, 1.0])
+e = np.arange(0,1.25,0.25)
 
 assert np.all(e == np.array([0., 0.25, 0.5, 0.75, 1.0]))
 
 f = np.arange(5 * 5).reshape(5, 5)
-fc = np.array([[1, 3], [11, 13], [21, 23]])
+fc = f[::2,1:4:2]
 
 assert np.all(fc == np.array([[1, 3], [11, 13], [21, 23]]))
 
 g = np.ones((5, 3))
-gc = np.array([3., 3., 3., 3., 3.])
+gc = np.sum(g,axis=1)
 
 assert np.all(gc == np.array([3., 3., 3., 3., 3.]))
 
 h = np.arange(5) + 1
-hc = np.array([2., 4., 6., 8., 10.])
+#print(h)
+hc = h*2
 
 assert np.all(hc == np.array([2., 4., 6., 8., 10.]))
 
