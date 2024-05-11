@@ -11,20 +11,20 @@ time.sleep(4)
 template = pyautogui.locateOnScreen('dino3.png')
 n = template[0] #первая корда
 m = template[1] #вторая корда
-n = int(n)
-m = int(m) 
+n = int(n) 
+m = int(m)  
 jump = 0  #подсчет прыжков
-slp = 0.1 # время перовой паузы
-k = 200    #дистанция до препятствия
-speed = 200  #скорость дин0
+slp = 0.09  # время перовой паузы
+k = 190     #дистанция до препятствия
+speed = 150    #скорость дин0
 speed_counter = 400 # для изменения скорости
 trex = pyautogui.screenshot("trex.png",
                             region=(n, m, k, 45)) 
 image = cv2.imread("trex.png")
 image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-labeled = label(image)
-mx = labeled.max()          
-pyautogui.press('Space')
+labeled = label(image) 
+mx = labeled.max()           
+pyautogui.press('Space') 
 print(f"Dino побежал: {slp}")
 # print(labeled.max())      
 time.sleep(1)       
@@ -35,11 +35,11 @@ while True:
     image = cv2.imread("trex.png")    
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     labeled = label(image)
- 
+    #  t(labeled.max( ))
     if labeled.max() > mx:  
         pyautogui.press('space')
         time.sleep(slp) 
-        pyautogui.press( 'down')
+        pyautogui.press('down')
         time.sleep(0.2) 
         jump += 10 
         print(f"{jump//10} Прыжок")
@@ -63,9 +63,8 @@ while True:
                 k +=15
                 speed_counter += 150
                 print('Переключение  передачи')
-                 
                 print(slp,k ) 
-            
+             
 
     # tim e .sleep(0.3)                                                             
 # # """# Box(left=643,      top=305, w idth=80,  height=84) 
