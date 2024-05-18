@@ -14,9 +14,10 @@ m = template[1] #вторая корда
 n = int(n) 
 m = int(m)   
 jump = 0  #по дсчет прыжков
-slp = 0.09  #  время перовой паузы
-k = 180     #ди станция до препятствия
+slp = 0.15 #  время перовой паузы
+k = 170    #ди станция до препятствия
 speed = 150  #скорость дин0
+tm = 0.03
 speed_counter = 400 # для изменения скорости
 trex = pyautogui.screenshot("trex.png",
                             region=(n, m, k, 45)) 
@@ -25,8 +26,7 @@ image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 labeled = label(image) 
 mx = labeled.max()            
 pyautogui.press('Space') 
-print(f"Dino побежал: {slp}")
-# print(labeled.max())      
+print(f"Dino побежал: {slp}")   
 time.sleep(1)       
 while True:      
     """Delai scrin """ 
@@ -35,38 +35,33 @@ while True:
     image = cv2.imread("trex.png")    
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     labeled = label(image)
-    #  t(labeled.max( ))
     if labeled.max() > mx:  
-        pyautogui.press('space')
+        pyautogui.press('up')
         time.sleep(slp) 
-        pyautogui.press('down')
-        time.sleep(0.2) 
+        pyautogui.keyDown('down')
+        # time.sleep(0.03)
+        pyautogui.keyUp('down')
+        time.sleep(tm) 
         jump += 10 
         print(f"{jump//10} Прыжок")
-    # if jump > speed:
-    #     print('Переключение передачи')
-    #     k +=5 
-    #     speed += 100
-    #     print(k)
-    #     if speed > speed_counter:
-    #         slp -=0.01
-    #         print(slp)
-    #         print('Смена тайма')
-    #         speed_counter+=100
         if jump == speed:
             slp -=0.01
             print('Смена тайма')
-            if slp < 0: 
-                slp = 0
+            print(slp,k) 
+            if jump ==240:
+                tm = 0.02
+            if slp < 0.01: 
+                slp = 0.01
             speed += 100
             if speed>speed_counter:
-                k +=12
+                k +=13
+                tm = 0.001
                 speed_counter += 150
                 print('Переключение  передачи')
-                print(slp,k) 
+                print(slp,k,tm) 
              
 
     # tim e .sleep(0.3)                                                             
 # # """# Box(left=643,      top=305, w idth=80,  height=84) 
 ## Box(left=89, top=355,   width=68, he ight=72)
-# # """# print("Acces")       
+# # """# print("Acces")    
