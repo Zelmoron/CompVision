@@ -14,10 +14,10 @@ m = template[1] #вторая корда
 n = int(n) 
 m = int(m)   
 jump = 0  #по дсчет прыжков
-slp = 0.15 #  время перовой паузы
+slp = 0.14#  время перовой паузы
 k = 170    #ди станция до препятствия
 speed = 150  #скорость дин0
-tm = 0.03
+tm = 0.01
 speed_counter = 400 # для изменения скорости
 trex = pyautogui.screenshot("trex.png",
                             region=(n, m, k, 45)) 
@@ -39,26 +39,28 @@ while True:
         pyautogui.press('up')
         time.sleep(slp) 
         pyautogui.keyDown('down')
-        # time.sleep(0.03)
+
         pyautogui.keyUp('down')
-        time.sleep(tm) 
+        time.sleep(0.02)
         jump += 10 
         print(f"{jump//10} Прыжок")
-        if jump == speed:
-            slp -=0.01
-            print('Смена тайма')
-            print(slp,k) 
-            if jump ==240:
-                tm = 0.02
-            if slp < 0.01: 
-                slp = 0.01
-            speed += 100
-            if speed>speed_counter:
-                k +=13
-                tm = 0.001
-                speed_counter += 150
-                print('Переключение  передачи')
-                print(slp,k,tm) 
+    if jump == speed:
+        slp -=0.005
+        k +=5
+        print('Смена тайма')
+        print(slp,k) 
+        if jump ==240:
+            tm = 0.02
+        if slp < 0.01: 
+            slp = 0.01
+        
+        speed += 100
+        if speed>speed_counter:
+            k +=8
+            slp -=0.005
+            speed_counter += 150
+            print('Переключение  передачи')
+            print(slp,k,tm) 
              
 
     # tim e .sleep(0.3)                                                             

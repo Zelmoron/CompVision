@@ -1,3 +1,4 @@
+import time
 import cv2
 import numpy as np
 import numpy as np
@@ -109,7 +110,7 @@ def create_segment(from_, to_, thickness, space, color):
 
 def create_rect(x1, y1, x2, y2, x3, y3, x4, y4):
     # правый верх, левый верх, левый низ, левый верх
-    color = "green"
+    color = "white"
     create_segment((x1, y1), (x2, y2), 3, space, color )
     create_segment((x2, y2), (x3, y3), 3, space, color )
     create_segment((x3, y3), (x4, y4), 3, space, color )
@@ -122,9 +123,9 @@ pymunk.pygame_util.positive_y_is_up = False
 # cv2.namedWindow("Image", cv2.WINDOW_GUI_NORMAL)
 cv2.namedWindow("Mask", cv2.WINDOW_GUI_NORMAL)
 
-# cap = cv2.VideoCapture(2)
-# cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 1)
-# cap.set(cv2.CAP_PROP_EXPOSURE, 5)
+cap = cv2.VideoCapture(0)
+cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 1)
+cap.set(cv2.CAP_PROP_EXPOSURE, 5)
 
 lower = 0
 upper = 55
@@ -137,16 +138,16 @@ pp_dst = []
 maxW = 0
 maxH = 0
 
-# img = cap.read()[1]
-img = cv2.imread("cllean.jpg")
+img = cap.read()[1]
+# img = cv2.imread("cllean.jpg")
 
 img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 # img = cv2.threshold(img, 10, 255, type=cv2.THRESH_BINARY)[1]
-img = cv2.threshold(img, 10, 255, type=cv2.THRESH_BINARY)[1]
+img = cv2.threshold(img, 70, 255, type=cv2.THRESH_BINARY)[1]
 
 cv2.imshow("b", img)
 
-# while True: cv2.waitKey(1)
+#while True: cv2.waitKey(1)
 
 crop = find_paper_and_crop(img)
 # cv2.imshow("a", crop)
@@ -199,10 +200,14 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN and event.key == pygame.K_e:
             space.remove(*space.shapes)
+            surface.fill("white")
+            pygame.display.flip()
+            time.sleep(0.5)
+            aeae = cap.read()[1]
             balls = [([randrange(256) for i in range(3)], create_ball(space)) for j in range(100)]
 
-            # aeae = cap.read()[1]
-            aeae = cv2.imread("cllean.jpg")
+            
+            # aeae = cv2.imread("cllean.jpg")
 
             aeae = process_image(aeae)
             # frame = aeae.copy()
